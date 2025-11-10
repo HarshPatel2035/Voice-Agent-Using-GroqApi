@@ -1,100 +1,82 @@
-# Natural Language to SQL Query Generator — Gemini Pro
+# 🎙️ Voice Agent using Groq API
 
-Live demo: https://sql-query-generator-using-gemini.streamlit.app
+An interactive **AI-powered voice assistant** built with **Streamlit** and **Groq API**, capable of listening to user input through voice, understanding the query, and responding both **visually** and **through speech**.
 
-## Project Overview
-This project converts plain English prompts into accurate, executable SQL queries using **Google Gemini Pro**. It enables non-technical stakeholders and analysts to query relational databases (SQLite / MySQL / PostgreSQL) simply by typing natural language questions.
+🌐 **Live Demo:** [Voice Agent App](https://voice-agent-using-groapppi-aexaalavybgs43g2uwvzra.streamlit.app/)
 
-## Features
-- Convert natural language to SQL using Gemini Pro LLM.
-- Real-time query generation and execution via a Streamlit web UI.
-- Support for multiple relational databases (SQLite, MySQL, PostgreSQL).
-- Prompt engineering and templates to improve query accuracy and context awareness.
-- Secure handling of credentials using environment variables.
-- Basic ambiguity detection and user-friendly error messages.
+---
 
-## Tech Stack
-- **LLM:** Google Gemini Pro (via Gemini/Google APIs)
-- **Frontend / UI:** Streamlit
-- **Backend:** Python (requests / google-auth or official client)
-- **Databases:** SQLite, MySQL, PostgreSQL
-- **Deployment:** Streamlit Cloud (hosted at the live demo URL above)
+## 🚀 Features
 
-## Quickstart (Local)
-1. Clone this repository:
+- 🎤 **Voice Input:** Speak directly to the AI using the Streamlit microphone widget.
+- 💬 **Smart AI Responses:** Uses **Groq API** to generate intelligent and conversational answers.
+- 🔊 **Speech Output:** Converts AI responses to speech using **gTTS** for a smooth audio experience.
+- 🧠 **Conversational Flow:** Designed to simulate an AI Engineer being interviewed.
+- 🌍 **Web-Based:** Runs completely in the browser — no local setup required.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend:** Streamlit
+- **Backend:** Python
+- **AI Model:** Groq API
+- **Speech-to-Text:** Streamlit’s built-in microphone
+- **Text-to-Speech:** Google Text-to-Speech (gTTS)
+- **Deployment:** Streamlit Cloud
+
+---
+
+## 🧩 Project Structure
+
+```
+├── app.py                # Main Streamlit application
+├── config.py             # Contains API key and configuration settings
+├── requirements.txt      # Required Python packages
+└── README.md             # Project documentation
+```
+
+---
+
+## ⚙️ Setup Instructions
+
+1. **Clone this repository:**
    ```bash
-   git clone <your-repo-url>
-   cd <repo-folder>
+   git clone https://github.com/<your-username>/voice-agent.git
+   cd voice-agent
    ```
 
-2. Create and activate a Python virtual environment:
-   ```bash
-   python -m venv venv
-   source venv/bin/activate   # macOS / Linux
-   venv\\Scripts\\activate      # Windows
-   ```
-
-3. Install required Python packages:
+2. **Install dependencies:**
    ```bash
    pip install -r requirements.txt
    ```
 
-4. Set environment variables (example):
-   ```bash
-   export GEMINI_API_KEY="your_gemini_api_key"
-   export DATABASE_URL="postgresql://user:password@host:port/dbname"
-   ```
+3. **Add your Groq API key:**
+   - Create a `config.py` file in the project root.
+   - Add the following line inside it:
+     ```python
+     GROQ_API_KEY = "your_api_key_here"
+     ```
 
-   On Windows (PowerShell):
-   ```powershell
-   $env:GEMINI_API_KEY="your_gemini_api_key"
-   $env:DATABASE_URL="postgresql://user:password@host:port/dbname"
-   ```
-
-5. Run the app:
+4. **Run the app locally:**
    ```bash
    streamlit run app.py
    ```
 
-## Usage Examples
-- **User prompt:** `Show top 10 customers by total revenue in 2024`
-  - **Generated SQL (example):**
-    ```sql
-    SELECT customer_id, customer_name, SUM(amount) AS total_revenue
-    FROM sales
-    WHERE sale_date >= '2024-01-01' AND sale_date <= '2024-12-31'
-    GROUP BY customer_id, customer_name
-    ORDER BY total_revenue DESC
-    LIMIT 10;
-    ```
+---
 
-- **User prompt:** `Count orders per region for January 2025`
-  - **Generated SQL (example):**
-    ```sql
-    SELECT region, COUNT(*) AS orders_count
-    FROM orders
-    WHERE order_date >= '2025-01-01' AND order_date <= '2025-01-31'
-    GROUP BY region;
-    ```
+## 💡 Example Questions
 
-## Prompt Engineering & Best Practices
-- Provide schema context or upload small schema snippets for better accuracy.
-- Use explicit date formats when asking time-range queries.
-- If results seem ambiguous, the app suggests clarifying questions before execution.
+You can ask questions like:
+- “What should we know about your life story in a few sentences?”
+- “What’s your #1 superpower?”
+- “What are the top 3 areas you’d like to grow in?”
+- “How do you push your boundaries and limits?”
 
-## Security Considerations
-- Never hard-code API keys or database credentials.
-- Use environment variables and a secrets manager in production.
-- Limit database permissions for the app user (read-only when possible).
-- Sanitize and preview generated SQL before executing on production databases.
+---
 
-## Notes on Model Behavior
-- Gemini Pro generates SQL based on the prompt plus any schema/context supplied.
-- Always review generated SQL before running against production data.
-- Complex analytic queries or application-specific logic may require manual adjustments.
+## 📫 Contact
 
-## Contributing
-Contributions, bug reports, and feature requests are welcome. Open an issue or PR with a clear description.
-
-## License
-This project is distributed under the MIT License. See `LICENSE` for details.
+**Harsh Patel**  
+📧 harshpatel20.official@gmail.com  
+🔗 [GitHub Profile](https://github.com/HarshPatel2035)
