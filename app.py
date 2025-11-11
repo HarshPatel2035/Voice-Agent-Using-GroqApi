@@ -6,10 +6,8 @@ import speech_recognition as sr
 from groq import Groq
 from config import GROQ_API_KEY
 
-# Initialize Groq client
 client = Groq(api_key=GROQ_API_KEY)
 
-# Streamlit page setup
 st.set_page_config(page_title="AI Engineer VoiceBot 🎙️", page_icon="🤖", layout="centered")
 
 st.title("🤖 AI Engineer Voice Interview Bot")
