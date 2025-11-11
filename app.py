@@ -14,14 +14,17 @@ st.title("🤖 AI Engineer Voice Interview Bot")
 st.markdown("Speak your question — this bot will respond as an **AI Engineer candidate** being interviewed.")
 
 def speak_text(text):
-    """Convert text to speech using gTTS and play it in the browser"""
+    """Convert text to speech using gTTS and play in Streamlit"""
     try:
-        tts = gTTS(text=text, lang='en')
-        with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as tmp_file:
-            tts.save(tmp_file.name)
-            st.audio(tmp_file.name, format="audio/mp3", autoplay=True)
+        tts = gTTS(text)
+        temp_audio = tempfile.NamedTemporaryFile(delete=False, suffix=".mp3")
+        tts.save(temp_audio.name)
+        with open(temp_audio.name, "rb") as f:
+            audio_bytes = f.read()
+        st.audio(audio_bytes, format="audio/mp3")
+        os.remove(temp_audio.name)
     except Exception as e:
-        st.error(f"Error in text-to-speech: {e}")
+        st.warning(f"Speech generation failed: {e}")
 
 def get_audio():
     """Record voice input using Streamlit's built-in mic"""
