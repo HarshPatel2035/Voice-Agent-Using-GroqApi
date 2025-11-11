@@ -1,7 +1,7 @@
 import streamlit as st
 import tempfile
 import os
-import pyttsx3
+from gtts import gTTS
 import speech_recognition as sr
 from groq import Groq
 from config import GROQ_API_KEY
@@ -14,14 +14,14 @@ st.title("🤖 AI Engineer Voice Interview Bot")
 st.markdown("Speak your question — this bot will respond as an **AI Engineer candidate** being interviewed.")
 
 def speak_text(text):
-    """Convert text to speech using pyttsx3"""
+    """Convert text to speech using gTTS and play it in the browser"""
     try:
-        engine = pyttsx3.init()
-        engine.setProperty('rate', 170)
-        engine.say(text)
-        engine.runAndWait()
+        tts = gTTS(text=text, lang='en')
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as tmp_file:
+            tts.save(tmp_file.name)
+            st.audio(tmp_file.name, format="audio/mp3", autoplay=True)
     except Exception as e:
-        st.warning("Speech playback not supported on this platform.")
+        st.error(f"Error in text-to-speech: {e}")
 
 def get_audio():
     """Record voice input using Streamlit's built-in mic"""
@@ -49,7 +49,6 @@ def generate_response(prompt):
     """Generate AI response using Groq"""
     try:
         completion = client.chat.completions.create(
-
             model="llama-3.3-70b-versatile",
             temperature=0.7,
             max_completion_tokens=160,
@@ -80,7 +79,7 @@ if audio_file:
 
         if answer:
             st.success(f"**AI Engineer Answer:** {answer}")
-            speak_text(answer)
+            speak_text(answer)  # plays the voice automatically
         else:
             st.error("Failed to generate an answer.")
     else:
